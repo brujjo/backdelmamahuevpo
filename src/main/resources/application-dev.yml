@@ -1,0 +1,47 @@
+server:
+  port: 8085
+spring:
+  datasource:
+    username: postgres
+    password: 123456
+    url: jdbc:postgresql://localhost:5432/nubo?ApplicationName=receipts-api
+    hikari:
+      maximum-pool-size: 10
+      minimum-idle: 2
+      idle-timeout: 600000
+      validation-timeout: 5000
+      max-lifetime: 1800000
+      connection-timeout: 30000
+      leak-detection-threshold: 0
+      connection-test-query: SELECT 1
+      pool-name: receipts-api-pool
+  jpa:
+    hibernate:
+      ddl-auto: none
+      default_schema: NUANBODB
+    show-sql: 'false'
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+  security:
+    oauth2:
+      resourceserver:
+        opaque-token:
+          client-id: nubo-frontend-2
+          client-secret: my-secret-key
+          introspection-uri: http://localhost:8080/auth/realms/nbo-dev/protocol/openid-connect/token/introspect
+logging:
+  config: classpath:log/log4j2.properties
+  level:
+    org.hibernate: ERROR
+    org.springframework.jdbc.datasource: ERROR
+    com.zaxxer.hikari: ERROR
+config:
+  application:
+    rateLimited:
+      number-max-request: 1000
+      range-time-request: 60
+      waiting-time: 10
+client:
+  keycloak:
+    client-id: nubo-frontend-2
+    client-secret: my-secret-key
+    introspection-uri: http://localhost:8080/auth/realms/nbo-dev/protocol/openid-connect/token/introspect

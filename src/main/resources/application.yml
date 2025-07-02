@@ -1,0 +1,33 @@
+spring:
+  profiles:
+    active: local
+  application:
+    name: web-socket-server-api
+    type: service
+server:
+  servlet:
+    context-path: /web-socket-server-api
+application:
+  version: 0.45.0
+  description: 'Documentation Endpoints'
+  title: Web-Socket-Server-Api
+  group: web-socket-server-api
+management:
+  health:
+    probes:
+      enabled: true
+      livenessState:
+        enabled: true
+      readinessState:
+        enabled: true
+  endpoint:
+    health:
+      probes:
+        enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics
+  metrics:
+    enable:
+      hikari: true
